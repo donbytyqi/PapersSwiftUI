@@ -14,7 +14,7 @@ struct PhotoRowImageView: View {
     
     var body: some View {
         return VStack {
-            ImageViewContainer(imageUrl: photo.urls["regular"] ?? "")
+            RemoteImage(imageUrl: photo.urls["regular"] ?? "")
                 .frame(width: UIScreen.main.bounds.width - 32, height: 250, alignment: .center)
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
