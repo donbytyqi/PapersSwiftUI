@@ -10,7 +10,7 @@ import Foundation
 
 struct UnsplashAPIService {
     
-    static let apiKey = "your api key here"
+    static let apiKey = "93404f08ee44f12d92029e7af3cb8803d63f52592e9ab463a70d0c77b0b4d159"
     
     static func getPhotos(page: Int, completion: @escaping ([Photo]) -> ()) {
         

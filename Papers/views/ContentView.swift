@@ -23,6 +23,18 @@ struct ContentView: View {
                     }
                 }
             }
+            
+//            List {
+//                ForEach(photoStore.photos) {photo in
+//                    NavigationLink(destination: PhotoDetailView(photo: photo)) {
+//                        PhotoRow(photo: photo)
+//                    }
+//                }
+//                Rectangle().foregroundColor(.clear)
+//                    .onAppear {
+//                        self.photoStore.fetchMore()
+//                }
+//            }
             .navigationBarTitle(Text("Photos"))
         }.onAppear(perform: load)
     }

@@ -14,7 +14,7 @@ struct PhotoRow: View {
 
     var body: some View {
         
-        return VStack(alignment: .leading) {
+        return VStack(alignment: .center) {
             PhotoRowImageView(photo: photo).shadow(radius: 8)
             HStack {
                 RemoteImage(imageUrl: photo.user.profile_image["large"] ?? "")
@@ -31,7 +31,7 @@ struct PhotoRow: View {
                 
             }
             
-        }.frame(width: UIScreen.main.bounds.width)
+        }.frame(width: UIScreen.main.bounds.width - 32)
         
     }
     
