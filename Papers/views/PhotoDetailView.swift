@@ -42,9 +42,14 @@ struct PhotoDetailView: View {
                 
                 Divider().frame(height: 50)
                 
-                ForEach(photoStore.userPhotos) {
-                    photo in
-                    PhotoRow(photo: photo)
+                if photoStore.userPhotos.isEmpty {
+                    Text("No photos found :(")
+                        .font(.largeTitle)
+                } else {
+                    ForEach(photoStore.userPhotos) {
+                        photo in
+                        PhotoRow(photo: photo)
+                    }
                 }
                 
             }.onAppear(perform: loadUserPhotos)

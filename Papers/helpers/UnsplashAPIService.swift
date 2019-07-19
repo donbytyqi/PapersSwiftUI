@@ -21,7 +21,6 @@ struct UnsplashAPIService {
             completion(photos)
             return }
         
-        print(url, "URL DUDE")
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
             guard error == nil else {
