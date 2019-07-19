@@ -12,6 +12,16 @@ import Combine
 struct ContentView: View {
     
     @EnvironmentObject var photoStore: PhotoStore
+    @State var showingSheet = false
+    @State var orderBy = "curated" {
+        didSet {
+            self.photoStore.fetch(orderBy: orderBy)
+        }
+    }
+    
+    var sheet: ActionSheet {
+        ActionSheet(title: Text(""), message: Text("Default is ~Curated~"), buttons: [.default(Text("Curated"), onTrigger: { self.orderBy = "curated" }), .default(Text("Popular"), onTrigger: { self.orderBy = "popular" }), .default(Text("Latest"), onTrigger: { self.orderBy = "latest" }), .default(Text("Oldest"), onTrigger: { self.orderBy = "oldest" }), .cancel()])
+    }
     
     var body: some View {
         NavigationView {
@@ -22,27 +32,20 @@ struct ContentView: View {
                         PhotoRow(photo: photo)
                     }
                 }
-            }
-            
-//            List {
-//                ForEach(photoStore.photos) {photo in
-//                    NavigationLink(destination: PhotoDetailView(photo: photo)) {
-//                        PhotoRow(photo: photo)
-//                    }
-//                }
-//                Rectangle().foregroundColor(.clear)
-//                    .onAppear {
-//                        self.photoStore.fetchMore()
-//                }
-//            }
-            .navigationBarTitle(Text("Photos"))
+            }.navigationBarItems(trailing: Button(action: {
+                self.showingSheet = true
+            }, label: { Text("Order by") } ))
+                .actionSheet(isPresented: $showingSheet, content: {
+                    sheet
+                })
+                .navigationBarTitle(Text("Photos"))
         }.onAppear(perform: load)
     }
     
     func load() {
-        photoStore.fetch()
+        photoStore.fetch(orderBy: orderBy)
     }
-
+    
 }
 
 #if DEBUG

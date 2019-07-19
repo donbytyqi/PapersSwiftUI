@@ -16,8 +16,8 @@ class PhotoStore: BindableObject {
     var photos: [Photo] = []
     var page: Int = 1
     
-    func fetch() {
-        UnsplashAPIService.getPhotos(page: page) { (fetchedPhotos) in
+    func fetch(orderBy: String) {
+        UnsplashAPIService.getPhotos(page: page, orderBy: orderBy) { (fetchedPhotos) in
             DispatchQueue.main.async {
                 self.willChange.send(self)
                 self.photos = fetchedPhotos
@@ -25,10 +25,10 @@ class PhotoStore: BindableObject {
         }
     }
     
-    func fetchMore() {
+    func fetchMore(orderBy: String) {
         page += 1
         var newPhotos = photos
-        UnsplashAPIService.getPhotos(page: page) { (fetchedPhotos) in
+        UnsplashAPIService.getPhotos(page: page, orderBy: orderBy) { (fetchedPhotos) in
             DispatchQueue.main.async {
                 self.willChange.send(self)
                 fetchedPhotos.forEach({
