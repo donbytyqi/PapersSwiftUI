@@ -11,37 +11,51 @@ import SwiftUI
 struct PhotoDetailView: View {
     
     var photo: Photo
+    @EnvironmentObject var photoStore: PhotoStore
     
     var body: some View {
         
         VStack {
             ScrollView {
                 
-                RemoteImage(imageUrl: photo.user.profile_image["large"] ?? "")
-                    .frame(width: 170, height: 150, alignment: .center)
-                    .clipShape(Circle())
-                    .shadow(radius: 6)
-                
-                Text(photo.user.name)
-                    .foregroundColor(.black)
-                    .padding(EdgeInsets(top: 0.0, leading: 0.0, bottom: 8.0, trailing: 0.0))
-                
-                if !photo.user.bio.isEmpty {
+                HStack {
+                    RemoteImage(imageUrl: photo.user.profile_image["medium"] ?? "")
+                        .frame(width: 100, height: 80, alignment: .leading)
+                        .clipShape(Circle())
+                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
                     
-                    Text(photo.user.bio)
-                        .foregroundColor(.gray)
-                        .frame(width: 250, height: 100)
-                        .lineLimit(nil)
-                    
+                    VStack(alignment: .leading) {
+                        
+                        Text(photo.user.name)
+                            .foregroundColor(.black)
+                        
+                        Divider().frame(width: 200)
+                        
+                        Text(photo.user.bio)
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                            .lineLimit(3)
+                            .frame(width: 200)
+                        
+                    }
+                }.frame(width: UIScreen.main.bounds.width, alignment: .leading)
+                
+                Divider().frame(height: 50)
+                
+                ForEach(photoStore.userPhotos) {
+                    photo in
+                    PhotoRow(photo: photo)
                 }
                 
-                RemoteImage(imageUrl: photo.urls["regular"] ?? "")
-                    .frame(width: UIScreen.main.bounds.width)
-                
-            }
+            }.onAppear(perform: loadUserPhotos)
         }
         
         
+    }
+    
+    func loadUserPhotos() {
+        // this needs to be a different method but it works for now :p
+        photoStore.fetch(orderBy: "", username: photo.user.name)
     }
     
 }

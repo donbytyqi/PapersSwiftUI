@@ -10,7 +10,7 @@ import SwiftUI
 
 extension Photo {
     init(photoDict: [String: AnyObject], userDict: [String: AnyObject]) {
-        self.init(id: photoDict["id"] as? String ?? "", url: photoDict["url"] as? String ?? "", created_at: photoDict["created_at"] as? String ?? "", description: photoDict["description"] as? String ?? "", urls: photoDict["urls"] as? [String: String] ?? [:], user: User(id: userDict["id"] as? String ?? "", name: userDict["name"] as? String ?? "", bio: userDict["bio"] as? String ?? "", profile_image: userDict["profile_image"] as? [String: String] ?? [:]))
+        self.init(id: photoDict["id"] as? String ?? "", url: photoDict["url"] as? String ?? "", created_at: photoDict["created_at"] as? String ?? "", description: photoDict["description"] as? String ?? "", urls: photoDict["urls"] as? [String: String] ?? [:], user: User(id: userDict["id"] as? String ?? "", name: userDict["name"] as? String ?? "", username: userDict["username"] as? String ?? "", bio: userDict["bio"] as? String ?? "", profile_image: userDict["profile_image"] as? [String: String] ?? [:]))
     }
 }
 
