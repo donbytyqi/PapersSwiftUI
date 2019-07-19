@@ -1,7 +1,7 @@
 # PapersSwiftUI
 Basic Unsplash client for iOS made with SwiftUI (beta).
 
-<img width="25%" height="25%" src="https://i.imgur.com/123pTG9.png">
+<img width="25%" height="25%" src="https://i.imgur.com/bYfBVsB.png">
 
 <img width="25%" height="25%" src="https://i.imgur.com/DkWyGqs.png">
 
