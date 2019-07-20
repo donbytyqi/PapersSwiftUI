@@ -3,7 +3,7 @@ Basic Unsplash client for iOS made with SwiftUI (beta).
 
 <img width="25%" height="25%" src="https://i.imgur.com/bYfBVsB.png">
 
-<img width="25%" height="25%" src="https://i.imgur.com/DkWyGqs.png">
+<img width="25%" height="25%" src="https://i.imgur.com/LMkJXas.png">
 
 # Note
 SwiftUI is still in beta and I'm also still learning how it works.
