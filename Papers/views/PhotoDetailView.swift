@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Photos
 
 struct PhotoDetailView: View {
     
@@ -15,46 +16,51 @@ struct PhotoDetailView: View {
     
     var body: some View {
         
-        VStack {
-            ScrollView {
+        ScrollView {
+            
+            HStack {
+                RemoteImage(imageUrl: photo.user.profile_image["large"] ?? "")
+                    .frame(width: 100, height: 80, alignment: .leading)
+                    .clipShape(Circle())
+                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
                 
-                HStack {
-                    RemoteImage(imageUrl: photo.user.profile_image["medium"] ?? "")
-                        .frame(width: 100, height: 80, alignment: .leading)
-                        .clipShape(Circle())
-                        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
+                VStack(alignment: .leading) {
                     
-                    VStack(alignment: .leading) {
-                        
-                        Text(photo.user.name)
-                            .foregroundColor(.black)
-                        
+                    Text(photo.user.name)
+                        .foregroundColor(.black)
+                    
+                    if !photo.user.bio.isEmpty {
                         Divider().frame(width: 200)
-                        
-                        Text(photo.user.bio)
-                            .foregroundColor(.gray)
-                            .font(.subheadline)
-                            .lineLimit(3)
-                            .frame(width: 200)
-                        
                     }
-                }.frame(width: UIScreen.main.bounds.width, alignment: .leading)
-                
-                Divider().frame(height: 50)
-                
-                if photoStore.userPhotos.isEmpty {
-                    Text("No photos found :(")
-                        .font(.largeTitle)
-                } else {
-                    ForEach(photoStore.userPhotos) {
-                        photo in
-                        PhotoRow(photo: photo)
-                    }
+                    
+                    Text(photo.user.bio)
+                        .foregroundColor(.gray)
+                        .font(.subheadline)
+                        .lineLimit(3)
+                        .frame(width: 200, alignment: .leading)
+                    
                 }
                 
-            }.onAppear(perform: loadUserPhotos)
+                
+                
+            }.frame(width: UIScreen.main.bounds.width, alignment: .leading)
+            
+            Divider().frame(height: 50)
+            
+            RemoteImage(imageUrl: photo.urls["regular"] ?? "")
+                .frame(width: 300, height: 200, alignment: .leading)
+                .padding(EdgeInsets(top: 128, leading: 0, bottom: 0, trailing: 0 ))
+                .contextMenu {
+                    VStack {
+                        HStack {
+                            Button("Save Image") {
+                            }
+                        }
+                    }
+            }
+            
+            
         }
-        
         
     }
     

@@ -9,9 +9,9 @@
 import SwiftUI
 import Combine
 
-class PhotoStore: BindableObject {
+class PhotoStore: ObservableObject {
     
-    let willChange = PassthroughSubject<PhotoStore, Never>()
+    let objectWillChange = PassthroughSubject<PhotoStore, Never>()
 
     var photos: [Photo] = []
     var userPhotos: [Photo] = []
@@ -20,7 +20,7 @@ class PhotoStore: BindableObject {
     func fetch(orderBy: String, username: String = "") {
         UnsplashAPIService.getPhotos(page: page, orderBy: orderBy, username: username) { (fetchedPhotos) in
             DispatchQueue.main.async {
-                self.willChange.send(self)
+                self.objectWillChange.send(self)
                 if username == "" {
                     self.photos = fetchedPhotos
                 } else {
@@ -35,7 +35,7 @@ class PhotoStore: BindableObject {
         var newPhotos = photos
         UnsplashAPIService.getPhotos(page: page, orderBy: orderBy, username: username) { (fetchedPhotos) in
             DispatchQueue.main.async {
-                self.willChange.send(self)
+                self.objectWillChange.send(self)
                 fetchedPhotos.forEach({
                     if !newPhotos.contains($0) {
                         newPhotos.append($0)

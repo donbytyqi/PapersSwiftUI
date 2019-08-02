@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 struct RemoteImage: View {
-    @ObjectBinding var imageDownloader: ImageDownloader
+    @ObservedObject var imageDownloader: ImageDownloader
 
     init(imageUrl: String) {
         imageDownloader = ImageDownloader(imageURL: imageUrl)
@@ -26,9 +26,9 @@ struct RemoteImage: View {
     }
 }
 
-class ImageDownloader: BindableObject {
+class ImageDownloader: ObservableObject {
       
-    let willChange = PassthroughSubject<Data, Never>()
+    let objectWillChange = PassthroughSubject<Data, Never>()
     var data = Data()
 
     init(imageURL: String) {
@@ -38,7 +38,7 @@ class ImageDownloader: BindableObject {
             guard let data = data else { return }
 
             DispatchQueue.main.async {
-                self.willChange.send(data)
+                self.objectWillChange.send(data)
                 self.data = data }
 
             }.resume()

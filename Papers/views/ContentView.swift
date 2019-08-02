@@ -20,7 +20,9 @@ struct ContentView: View {
     }
     
     var sheet: ActionSheet {
-        ActionSheet(title: Text(""), message: Text("Default is ~Curated~"), buttons: [.default(Text("Curated"), onTrigger: { self.orderBy = "curated" }), .default(Text("Popular"), onTrigger: { self.orderBy = "popular" }), .default(Text("Latest"), onTrigger: { self.orderBy = "latest" }), .default(Text("Oldest"), onTrigger: { self.orderBy = "oldest" }), .cancel()])
+        
+        ActionSheet(title: Text(""), message: Text("Default is ~Curated~"), buttons: [.default(Text("Curated"), action: { self.orderBy = "curated" }), .default(Text("Popular"), action: { self.orderBy = "popular" }), .default(Text("Latest"), action: { self.orderBy = "latest" }), .default(Text("Oldest"), action: { self.orderBy = "oldest" }), .cancel()])
+        
     }
     
     var body: some View {
@@ -35,9 +37,7 @@ struct ContentView: View {
             }.navigationBarItems(trailing: Button(action: {
                 self.showingSheet = true
             }, label: { Text("Order by") } ))
-                .actionSheet(isPresented: $showingSheet, content: {
-                    sheet
-                })
+            .actionSheet(isPresented: $showingSheet, content: { sheet })
                 .navigationBarTitle(Text("Photos"))
         }.onAppear(perform: load)
     }
