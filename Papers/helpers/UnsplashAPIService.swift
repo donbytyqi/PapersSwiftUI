@@ -18,7 +18,7 @@ struct UnsplashAPIService {
         
         guard !apiKey.isEmpty else {
             fatalError("Insert your api key from Unsplash.")
-            return }
+        }
         
         guard let url = URL(string: username == "" ? "https://api.unsplash.com/photos?page=\(page)&client_id=\(UnsplashAPIService.apiKey)&per_page=50&order_by=\(orderBy)" : "https://api.unsplash.com/users/\(username.replacingOccurrences(of: " ", with: ""))/photos?page=\(page)&client_id=\(UnsplashAPIService.apiKey)") else {
             print("URL is invalid.")
